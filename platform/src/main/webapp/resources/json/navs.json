@@ -9,7 +9,7 @@
 				{
 					"title": "客户管理",
 					"icon": "&#xe613;",
-					"href": "page/404.html",
+					"href": "customer/list.do",
 					"spread": false,
 					"target": "_self"
 				},
@@ -45,7 +45,7 @@
 				{
 					"title": "用户管理",
 					"icon": "&#xe770;",
-					"href": "page/404.html",
+					"href": "user/list.do",
 					"spread": false,
 					"target": "_self"
 				},

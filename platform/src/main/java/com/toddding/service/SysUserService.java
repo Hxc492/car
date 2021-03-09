@@ -1,6 +1,8 @@
 package com.toddding.service;
 
 import com.toddding.common.Result;
+import com.toddding.domain.form.SysUserForm;
+import com.toddding.domain.query.SysUserQuery;
 
 /**
  * @Description:
@@ -15,4 +17,20 @@ public interface SysUserService {
      * @return
      */
     Result queryUser(String username, String password);
+
+    /**
+     * 分页查询用户列表
+     * @param query
+     * @return
+     */
+    Result queryPage(SysUserQuery query);
+
+    /**
+     * 新增用户
+     * @param form
+     * @return
+     */
+    Result add(SysUserForm form);
+
+    Result resetPassword(Integer id);
 }

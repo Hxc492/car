@@ -52,6 +52,10 @@
             <i class="layui-icon layui-icon-add-1"></i>
             新增
         </button>
+        <button class="layui-btn layui-btn-sm" lay-event="del">
+            <i class="layui-icon layui-icon-delete"></i>
+            删除
+        </button>
     </script>
     <script type="text/html" id="rowBtns">
         <button class="layui-btn layui-btn-sm" lay-event="resetPwd">

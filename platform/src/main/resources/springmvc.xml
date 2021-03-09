@@ -14,6 +14,7 @@
         <property name="prefix" value="/WEB-INF/view/"></property>
     </bean>
     <!-- 文件上传解析 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
     <!-- 静态资源文件处理 -->
     <!-- 拦截器 -->
 </beans>

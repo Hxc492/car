@@ -20,11 +20,11 @@
     <div class="login_face"><img src="${pageContext.request.contextPath}/resources/images/face.jpg" width="100%" class="userAvatar"></div>
     <div class="layui-form-item input-item">
         <label for="loginName">用户名</label>
-        <input type="text" placeholder="请输入用户名" autocomplete="off" id="loginName" name="loginName" class="layui-input" lay-verify="required">
+        <input type="text" placeholder="请输入用户名" autocomplete="off" id="loginName" name="loginName" class="layui-input" lay-verify="required" value="admin">
     </div>
     <div class="layui-form-item input-item">
         <label for="loginPassword">密码</label>
-        <input type="password" placeholder="请输入密码" autocomplete="off" id="loginPassword" name="loginPassword" class="layui-input" lay-verify="required">
+        <input type="password" placeholder="请输入密码" autocomplete="off" id="loginPassword" name="loginPassword" class="layui-input" lay-verify="required" value="admin">
     </div>
     <div class="layui-form-item input-item" id="imgCode">
         <div id="slider"></div>
