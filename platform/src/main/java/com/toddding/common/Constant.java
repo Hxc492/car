@@ -18,4 +18,24 @@ public interface Constant {
      * 默认的登录密码
      */
     String DEFAULT_PASSWORD="123456";
+    /**
+     * 保存上传文件的文件夹
+     */
+    String UPLOAD_FOLDER="upload";
+    /**
+     * 车辆未出租状态
+     */
+    Integer CAR_RENT_NOT=1;
+    /**
+     * 车辆已出租状态
+     */
+    Integer CAR_RENT_ED=2;
+    /**
+     * 出租记录未还车状态
+     */
+    Integer RENT_RETURN_NOT=1;
+    /**
+     * 出租记录已还车状态
+     */
+    Integer RENT_RETURN_ED=2;
 }

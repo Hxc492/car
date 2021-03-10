@@ -6,7 +6,6 @@ import com.toddding.domain.query.BusCustomerQuery;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @Description:

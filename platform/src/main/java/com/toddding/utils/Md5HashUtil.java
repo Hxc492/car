@@ -1,6 +1,5 @@
 package com.toddding.utils;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import com.toddding.common.Constant;
 import org.apache.shiro.crypto.hash.Md5Hash;
 

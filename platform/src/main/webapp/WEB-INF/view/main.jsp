@@ -88,10 +88,7 @@
             </div>
         </div>
     </div>
-    <!-- 底部 -->
-    <div class="layui-footer footer">
-        <p><span>copyright @2020-08-17 尚学堂</span>　　</p>
-    </div>
+
 </div>
 <script>
     var cxt = '${pageContext.request.contextPath}';// /项目

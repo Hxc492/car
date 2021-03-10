@@ -9,15 +9,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface BusCustomerMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insertSelective(BusCustomer record);
-
-    BusCustomer selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(BusCustomer record);
-
-    int updateByPrimaryKey(BusCustomer record);
 
     /**
      * 根据条件查询客户列表
@@ -38,18 +29,18 @@ public interface BusCustomerMapper {
      * @param form
      * @return
      */
-    int insert(BusCustomerForm form);
+    Integer insert(BusCustomerForm form);
 
     /**
      * 更新客户信息
      * @param form
      */
-    int update(BusCustomerForm form);
+    Integer update(BusCustomerForm form);
 
     /**
      * 批量添加客户信息
      * @param list
      * @return
      */
-    int batchInsert(@Param("customers") List<BusCustomerVO> list);
+    Integer batchInsert(@Param("customers") List<BusCustomerVO> list);
 }

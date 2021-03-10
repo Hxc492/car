@@ -40,6 +40,34 @@ public class PageController {
         return "customer/list.jsp";
     }
 
+    /**
+     * 跳转汽车列表
+     * @return
+     */
+    @RequestMapping("car/list.do")
+    public String carList(){
+        return "car/list.jsp";
+    }
+
+    /**
+     * 跳转租车记录
+     * @return
+     */
+    @RequestMapping("rent/list.do")
+    public String rentList(){
+        return "rent/list.jsp";
+    }
+
+    /**
+     * 跳转还车记录
+     * @return
+     */
+    @RequestMapping("return/list.do")
+    public String returnList(){
+        return "return/list.jsp";
+    }
+
+
 
 
 }

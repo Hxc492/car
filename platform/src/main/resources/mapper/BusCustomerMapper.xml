@@ -14,12 +14,7 @@
   <sql id="Base_Column_List">
     id, `name`, phone, address, id_card, sex, create_time, update_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from bus_customer
-    where id = #{id,jdbcType=INTEGER}
-  </select>
+
   <select id="selectList" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -49,65 +44,14 @@
         </if>
       </where>
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from bus_customer
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert">
     insert into
             bus_customer (`name`, phone, address, id_card, sex)
         value
             (#{name}, #{phone}, #{address}, #{idCard}, #{sex})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.toddding.domain.entity.BusCustomer" useGeneratedKeys="true">
-    insert into bus_customer
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        `name`,
-      </if>
-      <if test="phone != null">
-        phone,
-      </if>
-      <if test="address != null">
-        address,
-      </if>
-      <if test="idCard != null">
-        id_card,
-      </if>
-      <if test="sex != null">
-        sex,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="idCard != null">
-        #{idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+
   <insert id="batchInsert">
     insert into
     bus_customer (`name`, phone, address, id_card, sex)
@@ -116,44 +60,7 @@
       (#{customer.name}, #{customer.phone}, #{customer.address}, #{customer.idCard}, #{customer.sex})
     </foreach>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.toddding.domain.entity.BusCustomer">
-    update bus_customer
-    <set>
-      <if test="name != null">
-        `name` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="idCard != null">
-        id_card = #{idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.toddding.domain.entity.BusCustomer">
-    update bus_customer
-    set `name` = #{name,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      id_card = #{idCard,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
   <update id="update">
     update bus_customer
     set `name` = #{name},

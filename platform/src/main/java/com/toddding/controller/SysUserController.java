@@ -76,7 +76,4 @@ public class SysUserController {
         return sysUserService.resetPassword(id);
     }
 
-
-
-    //TODO 删除用户 物理删除
 }

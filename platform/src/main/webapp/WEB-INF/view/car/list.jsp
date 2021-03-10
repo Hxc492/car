@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">租金</label>
+                    <label class="layui-form-label">租金/天</label>
                     <div class="layui-input-inline" style="width: 100px;">
                         <input type="text" class="layui-input" placeholder="￥" id="minRentPrice">
                     </div>
@@ -155,7 +155,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">租金</label>
+                <label class="layui-form-label">租金/天</label>
                 <div class="layui-input-inline">
                     <input type="text" class="layui-input" name="rentPrice" lay-verify="required|number" lay-reqText="请输入租金" placeholder="租金">
                 </div>
@@ -188,7 +188,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">车牌号</label>
                     <div class="layui-input-inline">
-                        <input type="text" readonly class="layui-input" name="num" lay-verify="required" lay-reqText="请输入车牌号" placeholder="车牌号">
+                        <input type="text" readonly class="layui-input" name="num" lay-verify="required" lay-reqText="请输入车牌号" placeholder="车牌号" disabled>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -205,7 +205,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">颜色</label>
                     <div class="layui-input-inline">
-                        <input type="text" readonly class="layui-input" name="color" lay-verify="required" lay-reqText="请输入颜色" placeholder="颜色">
+                        <input type="text" readonly class="layui-input" name="color" lay-verify="required" lay-reqText="请输入颜色" placeholder="颜色" disabled>
                     </div>
                 </div>
             </div>
@@ -220,13 +220,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">价格</label>
                 <div class="layui-input-inline">
-                    <input type="text" readonly class="layui-input" name="price" lay-verify="required|number" lay-reqText="请输入价格" placeholder="价格">
+                    <input type="text" readonly class="layui-input" name="price" lay-verify="required|number" lay-reqText="请输入价格" placeholder="价格" disabled>
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">租金</label>
+                <label class="layui-form-label">租金/天</label>
                 <div class="layui-input-inline">
-                    <input type="text" readonly class="layui-input" name="rentPrice" lay-verify="required|number" lay-reqText="请输入租金" placeholder="租金">
+                    <input type="text" readonly class="layui-input" name="rentPrice" lay-verify="required|number" lay-reqText="请输入租金" placeholder="租金" disabled>
                 </div>
             </div>
         </div>
@@ -234,7 +234,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">押金</label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" name="deposit" lay-verify="required|number" lay-reqText="请输入押金" placeholder="押金">
+                    <input type="text" class="layui-input" name="deposit" lay-verify="required|number" lay-reqText="请输入押金" placeholder="押金" disabled>
                 </div>
             </div>
             <div class="layui-inline">
@@ -288,7 +288,7 @@
                 },
                 {field: "color", align: "center", title: "颜色"},
                 {field: "price", align: "center", title: "价格"},
-                {field: "rentPrice", align: "center", title: "出租金额"},
+                {field: "rentPrice", align: "center", title: "租金/天"},
                 {field: "deposit", align: "center", title: "押金"},
                 {
                     field: "isRent", align: "center", title: "状态", width: 80, templet: function (d) {

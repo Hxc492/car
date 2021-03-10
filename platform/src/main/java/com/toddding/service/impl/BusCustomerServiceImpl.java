@@ -13,14 +13,12 @@ import com.toddding.domain.query.BusCustomerQuery;
 import com.toddding.domain.vo.BusCustomerVO;
 import com.toddding.mapper.BusCustomerMapper;
 import com.toddding.service.BusCustomerService;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;

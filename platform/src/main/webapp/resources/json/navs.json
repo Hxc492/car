@@ -16,21 +16,21 @@
 				{
 					"title": "汽车管理",
 					"icon": "&#xe610;",
-					"href": "page/login/login.html",
+					"href": "car/list.do",
 					"spread": false,
 					"target": "_self"
 				},
 				{
 					"title": "出租记录",
 					"icon": "&#xe63c;",
-					"href": "page/login/login.html",
+					"href": "rent/list.do",
 					"spread": false,
 					"target": "_self"
 				},
 				{
 					"title": "还车记录",
 					"icon": "&#xe62a;",
-					"href": "page/login/login.html",
+					"href": "return/list.do",
 					"spread": false,
 					"target": "_self"
 				}

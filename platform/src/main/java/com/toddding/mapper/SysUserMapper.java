@@ -10,17 +10,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface SysUserMapper {
-    int deleteByPrimaryKey(Integer id);
-
-
-
-    int insertSelective(SysUser record);
-
-    SysUser selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(SysUser record);
-
-    int updateByPrimaryKey(SysUser record);
 
     /**
      * 根据用户名和密码查询用户
@@ -49,7 +38,7 @@ public interface SysUserMapper {
      * @param form
      * @return
      */
-    int insert(SysUserForm form);
+    Integer insert(SysUserForm form);
 
-    int updatePassword(@Param("id") Integer id, @Param("loginPassword") String loginPassword);
+    Integer updatePassword(@Param("id") Integer id, @Param("loginPassword") String loginPassword);
 }
