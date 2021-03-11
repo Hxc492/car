@@ -10,14 +10,6 @@ import java.util.List;
 
 public interface SysPermissionMapper {
 
-    int insertSelective(SysPermission record);
-
-    SysPermission selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(SysPermission record);
-
-    int updateByPrimaryKey(SysPermission record);
-
     /**
      * 根据用户id查询用户所有的菜单
      * @param userId

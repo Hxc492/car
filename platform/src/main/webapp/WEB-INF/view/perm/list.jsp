@@ -368,7 +368,7 @@
          * @param rowData
          */
         function permDelete(rowData) {
-            layer.confirm("确定要删除改权限吗?", function (index) {
+            layer.confirm("确定要删除该权限吗?", function (index) {
                 $.get(cxt + "/permission/delete.do", {id: rowData.id}, function (rs) {
                     layer.msg(rs.msg);
                     if (rs.code == 200) {

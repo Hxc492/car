@@ -15,12 +15,7 @@
   <sql id="Base_Column_List">
     id, title, icon, href, spread, `type`, tag, sort, parent_id
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sys_permission
-    where id = #{id}
-  </select>
+
   <select id="selectUserPermission" resultMap="BaseResultMap">
     select
       DISTINCT <include refid="Base_Column_List" />
@@ -75,103 +70,7 @@
     values
       (#{title}, #{icon}, #{href}, #{spread}, #{type}, #{tag}, #{sort}, #{parentId})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.toddding.domain.entity.SysPermission" useGeneratedKeys="true">
-    insert into sys_permission
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="title != null">
-        title,
-      </if>
-      <if test="icon != null">
-        icon,
-      </if>
-      <if test="href != null">
-        href,
-      </if>
-      <if test="spread != null">
-        spread,
-      </if>
-      <if test="type != null">
-        `type`,
-      </if>
-      <if test="tag != null">
-        tag,
-      </if>
-      <if test="sort != null">
-        sort,
-      </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="title != null">
-        #{title},
-      </if>
-      <if test="icon != null">
-        #{icon},
-      </if>
-      <if test="href != null">
-        #{href},
-      </if>
-      <if test="spread != null">
-        #{spread},
-      </if>
-      <if test="type != null">
-        #{type},
-      </if>
-      <if test="tag != null">
-        #{tag},
-      </if>
-      <if test="sort != null">
-        #{sort},
-      </if>
-      <if test="parentId != null">
-        #{parentId},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.toddding.domain.entity.SysPermission">
-    update sys_permission
-    <set>
-      <if test="title != null">
-        title = #{title},
-      </if>
-      <if test="icon != null">
-        icon = #{icon},
-      </if>
-      <if test="href != null">
-        href = #{href},
-      </if>
-      <if test="spread != null">
-        spread = #{spread},
-      </if>
-      <if test="type != null">
-        `type` = #{type},
-      </if>
-      <if test="tag != null">
-        tag = #{tag},
-      </if>
-      <if test="sort != null">
-        sort = #{sort},
-      </if>
-      <if test="parentId != null">
-        parent_id = #{parentId},
-      </if>
-    </set>
-    where id = #{id}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.toddding.domain.entity.SysPermission">
-    update sys_permission
-    set title = #{title},
-      icon = #{icon},
-      href = #{href},
-      spread = #{spread},
-      `type` = #{type},
-      tag = #{tag},
-      sort = #{sort},
-      parent_id = #{parentId}
-    where id = #{id}
-  </update>
+
   <update id="update">
      update sys_permission
     set title = #{title},

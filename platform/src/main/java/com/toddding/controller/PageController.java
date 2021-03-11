@@ -85,5 +85,13 @@ public class PageController {
         return "perm/list.jsp";
     }
 
+    /**
+     * 跳转新闻公告
+     * @return
+     */
+    @RequestMapping("news/list.do")
+    public String newsList(){
+        return "news/list.jsp";
+    }
 
 }
