@@ -52,14 +52,14 @@
 				{
 					"title": "角色管理",
 					"icon": "&#xe612;",
-					"href": "page/login/login.html",
+					"href": "role/list.do",
 					"spread": false,
 					"target": "_self"
 				},
 				{
 					"title": "权限管理",
 					"icon": "&#xe672;",
-					"href": "page/login/login.html",
+					"href": "perm/list.do",
 					"spread": false,
 					"target": "_self"
 				}

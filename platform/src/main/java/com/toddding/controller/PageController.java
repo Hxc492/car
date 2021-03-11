@@ -67,7 +67,23 @@ public class PageController {
         return "return/list.jsp";
     }
 
+     /**
+     * 跳转角色管理
+     * @return
+     */
+    @RequestMapping("role/list.do")
+    public String roleList(){
+        return "role/list.jsp";
+    }
 
+     /**
+     * 跳转权限管理
+     * @return
+     */
+    @RequestMapping("perm/list.do")
+    public String permList(){
+        return "perm/list.jsp";
+    }
 
 
 }

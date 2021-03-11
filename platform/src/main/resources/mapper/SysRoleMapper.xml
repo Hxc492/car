@@ -14,17 +14,43 @@
     select 
     <include refid="Base_Column_List" />
     from sys_role
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
+  </select>
+    <select id="selectList" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from sys_role
+      <where>
+        <if test="name != null and name != ''">
+          name like concat('%',#{name},'%')
+        </if>
+      </where>
+    </select>
+  <select id="selectListByUserId" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      sys_role as sr
+    left join
+      sys_user_role_rel as sur
+    on
+      sr.id = sur.role_id
+    where
+      sur.user_id = #{userId}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_role
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.toddding.domain.entity.SysRole" useGeneratedKeys="true">
-    insert into sys_role (`name`, tag, descp
-      )
-    values (#{name,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{descp,jdbcType=VARCHAR}
-      )
+  <delete id="deleteUserRole">
+    delete from sys_user_role_rel as sur
+    where sur.user_id = #{userId}
+  </delete>
+  <insert id="insert">
+    insert into sys_role
+      (`name`, tag, descp)
+    values
+      (#{name}, #{tag}, #{descp})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.toddding.domain.entity.SysRole" useGeneratedKeys="true">
     insert into sys_role
@@ -41,36 +67,49 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+        #{name},
       </if>
       <if test="tag != null">
-        #{tag,jdbcType=VARCHAR},
+        #{tag},
       </if>
       <if test="descp != null">
-        #{descp,jdbcType=VARCHAR},
+        #{descp},
       </if>
     </trim>
+  </insert>
+  <insert id="batchInsertUserRoles">
+    insert into sys_user_role_rel (user_id,role_id) values
+    <foreach collection="roleIds" item="roleId" separator=",">
+      (#{userId},#{roleId})
+    </foreach>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.toddding.domain.entity.SysRole">
     update sys_role
     <set>
       <if test="name != null">
-        `name` = #{name,jdbcType=VARCHAR},
+        `name` = #{name},
       </if>
       <if test="tag != null">
-        tag = #{tag,jdbcType=VARCHAR},
+        tag = #{tag},
       </if>
       <if test="descp != null">
-        descp = #{descp,jdbcType=VARCHAR},
+        descp = #{descp},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.toddding.domain.entity.SysRole">
     update sys_role
-    set `name` = #{name,jdbcType=VARCHAR},
-      tag = #{tag,jdbcType=VARCHAR},
-      descp = #{descp,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    set `name` = #{name},
+      tag = #{tag},
+      descp = #{descp}
+    where id = #{id}
+  </update>
+  <update id="update">
+    update sys_role set
+      `name` = #{name},
+      tag = #{tag},
+      descp = #{descp}
+    where id = #{id}
   </update>
 </mapper>
