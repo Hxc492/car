@@ -10,12 +10,7 @@
   <sql id="Base_Column_List">
     id, `name`, tag, descp
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sys_role
-    where id = #{id}
-  </select>
+
     <select id="selectList" resultMap="BaseResultMap">
       select
       <include refid="Base_Column_List" />
@@ -38,10 +33,7 @@
     where
       sur.user_id = #{userId}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from sys_role
-    where id = #{id}
-  </delete>
+
   <delete id="deleteUserRole">
     delete from sys_user_role_rel as sur
     where sur.user_id = #{userId}
@@ -52,59 +44,14 @@
     values
       (#{name}, #{tag}, #{descp})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.toddding.domain.entity.SysRole" useGeneratedKeys="true">
-    insert into sys_role
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        `name`,
-      </if>
-      <if test="tag != null">
-        tag,
-      </if>
-      <if test="descp != null">
-        descp,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name},
-      </if>
-      <if test="tag != null">
-        #{tag},
-      </if>
-      <if test="descp != null">
-        #{descp},
-      </if>
-    </trim>
-  </insert>
+
   <insert id="batchInsertUserRoles">
     insert into sys_user_role_rel (user_id,role_id) values
     <foreach collection="roleIds" item="roleId" separator=",">
       (#{userId},#{roleId})
     </foreach>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.toddding.domain.entity.SysRole">
-    update sys_role
-    <set>
-      <if test="name != null">
-        `name` = #{name},
-      </if>
-      <if test="tag != null">
-        tag = #{tag},
-      </if>
-      <if test="descp != null">
-        descp = #{descp},
-      </if>
-    </set>
-    where id = #{id}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.toddding.domain.entity.SysRole">
-    update sys_role
-    set `name` = #{name},
-      tag = #{tag},
-      descp = #{descp}
-    where id = #{id}
-  </update>
+
   <update id="update">
     update sys_role set
       `name` = #{name},

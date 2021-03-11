@@ -23,19 +23,31 @@ public interface Constant {
      */
     String UPLOAD_FOLDER="upload";
     /**
-     * 车辆未出租状态
+     * 车辆状态 未出租
      */
     Integer CAR_RENT_NOT=1;
     /**
-     * 车辆已出租状态
+     * 车辆状态 已出租
      */
     Integer CAR_RENT_ED=2;
     /**
-     * 出租记录未还车状态
+     * 出租记录状态 未还车
      */
     Integer RENT_RETURN_NOT=1;
     /**
-     * 出租记录已还车状态
+     * 出租记录状态 已还车
      */
     Integer RENT_RETURN_ED=2;
+    /**
+     * 权限类型 菜单
+     */
+    Integer PERMISSION_TYPE_MENU = 1;
+    /**
+     * 权限类型 按钮
+     */
+    Integer PERMISSION_TYPE_BUTTON = 2;
+    /**
+     * 一级菜单
+     */
+    Integer MENU_LV1=0;
 }

@@ -8,15 +8,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface SysRoleMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insertSelective(SysRole record);
-
-    SysRole selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(SysRole record);
-
-    int updateByPrimaryKey(SysRole record);
 
     /**
      * 分页查询角色列表
