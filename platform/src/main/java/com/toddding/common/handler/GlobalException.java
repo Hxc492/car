@@ -4,6 +4,8 @@ import com.toddding.common.CodeMsg;
 import com.toddding.common.Result;
 import com.toddding.common.exception.BussiException;
 import org.apache.shiro.ShiroException;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,7 +28,12 @@ public class GlobalException {
         }
         //shiro异常
         if (exception instanceof ShiroException){
-            //shiro相关处理
+            if (exception instanceof UnknownAccountException){
+                return new Result(CodeMsg.USER_USERNAME_PASSWORD_ERROR);
+            }
+            if (exception instanceof AuthenticationException){
+                return new Result(CodeMsg.USER_NOT_HAVE_PERMISSION_ERROR);
+            }
             return null;
         }
         //可能发生其他异常

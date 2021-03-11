@@ -16,4 +16,8 @@ public class SysPermissionVo extends SysPermission {
      * 子菜单
      */
     private List<SysPermissionVo> children;
+    /**
+     * 前端设置复选框
+     */
+    private String checkArr = "0";
 }

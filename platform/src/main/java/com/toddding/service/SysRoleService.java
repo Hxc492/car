@@ -53,4 +53,26 @@ public interface SysRoleService {
      * @return
      */
     Result insertUserRoles(Integer userId, List<Integer> roleIds);
+
+    /**
+     * 查询用户所有角色的标识
+     * @param id
+     * @return
+     */
+    List<String> queryUserRolesTags(Integer id);
+
+    /**
+     * 根据角色查询权限id
+     * @param id
+     * @return
+     */
+    Result queryRolePermissionIds(Integer id);
+
+    /**
+     * 设置角色权限id
+     * @param roleId
+     * @param permissionId
+     * @return
+     */
+    Result addRolePermission(Integer roleId, List<Integer> permissionId);
 }

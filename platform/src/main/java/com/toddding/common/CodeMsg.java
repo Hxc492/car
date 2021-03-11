@@ -14,6 +14,8 @@ public enum CodeMsg {
     ,USER_LOGIN_NAME_EXIST_ERROR(1002,"用户登录名已被使用")
     ,USER_PHONE_EXIST_ERROR(1003,"用户手机号已被使用")
     ,USER_ID_CARD_EXIST_ERROR(1004,"用户身份证号已被使用")
+    ,USER_NOT_HAVE_PERMISSION_ERROR(1005,"用户权限不足")
+    ,USER_UPDATE_PASSWORD_ERROR(1006,"修改密码失败，原密码不正确")
 
     //客户管理
     ,CUSTOMER_ID_CARD_EXIST_ERROR(2001,"客户身份证号已被使用")

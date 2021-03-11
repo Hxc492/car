@@ -82,4 +82,11 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserMapper.updatePassword(id,Md5HashUtil.encrypt(Constant.DEFAULT_PASSWORD));
         return new Result();
     }
+
+    @Override
+    public Result updatePassword(Integer id, String newPassword) {
+        newPassword=Md5HashUtil.encrypt(newPassword);
+        sysUserMapper.updatePassword(id,newPassword);
+        return new Result();
+    }
 }

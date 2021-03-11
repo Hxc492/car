@@ -19,7 +19,7 @@
     select 
     <include refid="Base_Column_List" />
     from sys_permission
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </select>
   <select id="selectUserPermission" resultMap="BaseResultMap">
     select
@@ -31,21 +31,49 @@
       and sur.role_id = srp.role_id
       and srp.per_id = sp.id
 --    查询的类型为菜单，不查询按钮
-      and sp.type = #{type}
+      <if test="type != null">
+        and sp.type = #{type}
+      </if>
     order by
       sp.sort desc
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      sys_permission
+    <where>
+      <if test="title != null and title != ''">
+        title like concat('%,'#{title},'%')
+      </if>
+    </where>
+  </select>
+  <select id="selectAllChildId" resultType="java.lang.Integer">
+    select id from sys_permission
+    where parent_id in
+    <foreach collection="ids" item="id" separator="," open="(" close=")">
+      #{id}
+    </foreach>
+  </select>
+  <delete id="batchDelete">
     delete from sys_permission
-    where id = #{id,jdbcType=INTEGER}
+    where id in
+    <foreach collection="ids" item="id" separator="," open="(" close=")">
+      #{id}
+    </foreach>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.toddding.domain.entity.SysPermission" useGeneratedKeys="true">
-    insert into sys_permission (title, icon, href, 
-      spread, `type`, tag, sort, 
-      parent_id)
-    values (#{title,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}, 
-      #{spread,jdbcType=BIT}, #{type,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
-      #{parentId,jdbcType=INTEGER})
+  <delete id="batchDeleteRel">
+    delete from sys_role_per_rel
+    where per_id in
+    <foreach collection="ids" item="id" separator="," open="(" close=")">
+      #{id}
+    </foreach>
+  </delete>
+  <insert id="insert">
+    insert into sys_permission 
+      (title, icon, href, spread, `type`, tag, sort, parent_id)
+    values
+      (#{title}, #{icon}, #{href}, #{spread}, #{type}, #{tag}, #{sort}, #{parentId})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.toddding.domain.entity.SysPermission" useGeneratedKeys="true">
     insert into sys_permission
@@ -77,28 +105,28 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="title != null">
-        #{title,jdbcType=VARCHAR},
+        #{title},
       </if>
       <if test="icon != null">
-        #{icon,jdbcType=VARCHAR},
+        #{icon},
       </if>
       <if test="href != null">
-        #{href,jdbcType=VARCHAR},
+        #{href},
       </if>
       <if test="spread != null">
-        #{spread,jdbcType=BIT},
+        #{spread},
       </if>
       <if test="type != null">
-        #{type,jdbcType=INTEGER},
+        #{type},
       </if>
       <if test="tag != null">
-        #{tag,jdbcType=VARCHAR},
+        #{tag},
       </if>
       <if test="sort != null">
-        #{sort,jdbcType=INTEGER},
+        #{sort},
       </if>
       <if test="parentId != null">
-        #{parentId,jdbcType=INTEGER},
+        #{parentId},
       </if>
     </trim>
   </insert>
@@ -106,42 +134,54 @@
     update sys_permission
     <set>
       <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
+        title = #{title},
       </if>
       <if test="icon != null">
-        icon = #{icon,jdbcType=VARCHAR},
+        icon = #{icon},
       </if>
       <if test="href != null">
-        href = #{href,jdbcType=VARCHAR},
+        href = #{href},
       </if>
       <if test="spread != null">
-        spread = #{spread,jdbcType=BIT},
+        spread = #{spread},
       </if>
       <if test="type != null">
-        `type` = #{type,jdbcType=INTEGER},
+        `type` = #{type},
       </if>
       <if test="tag != null">
-        tag = #{tag,jdbcType=VARCHAR},
+        tag = #{tag},
       </if>
       <if test="sort != null">
-        sort = #{sort,jdbcType=INTEGER},
+        sort = #{sort},
       </if>
       <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=INTEGER},
+        parent_id = #{parentId},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.toddding.domain.entity.SysPermission">
     update sys_permission
-    set title = #{title,jdbcType=VARCHAR},
-      icon = #{icon,jdbcType=VARCHAR},
-      href = #{href,jdbcType=VARCHAR},
-      spread = #{spread,jdbcType=BIT},
-      `type` = #{type,jdbcType=INTEGER},
-      tag = #{tag,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=INTEGER},
-      parent_id = #{parentId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    set title = #{title},
+      icon = #{icon},
+      href = #{href},
+      spread = #{spread},
+      `type` = #{type},
+      tag = #{tag},
+      sort = #{sort},
+      parent_id = #{parentId}
+    where id = #{id}
+  </update>
+  <update id="update">
+     update sys_permission
+    set title = #{title},
+      icon = #{icon},
+      href = #{href},
+      spread = #{spread},
+      `type` = #{type},
+      tag = #{tag},
+      sort = #{sort},
+      parent_id = #{parentId}
+    where id = #{id}
   </update>
 </mapper>

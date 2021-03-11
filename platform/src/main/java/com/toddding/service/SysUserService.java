@@ -32,5 +32,18 @@ public interface SysUserService {
      */
     Result add(SysUserForm form);
 
+    /**
+     * 重置密码
+     * @param id
+     * @return
+     */
     Result resetPassword(Integer id);
+
+    /**
+     * 根据用户id修改密码
+     * @param id
+     * @param newPassword
+     * @return
+     */
+    Result updatePassword(Integer id, String newPassword);
 }

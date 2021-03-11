@@ -64,4 +64,18 @@ public class SysRoleController {
     public Result setRole(@RequestParam("userId")Integer userId, @RequestParam("roleId")List<Integer> roleIds){
         return roleService.insertUserRoles(userId,roleIds);
     }
+
+    @ApiOperation("根据角色查询所有的权限id")
+    @RequestMapping("permissionIds.do")
+    public Result permissionIds(@RequestParam("id")Integer id){
+        return roleService.queryRolePermissionIds(id);
+    }
+
+    @ApiOperation("设置权限id")
+    @RequestMapping("setRolePermission.do")
+    public Result permissionIds(@RequestParam("roleId")Integer roleId,@RequestParam("permissionId")List<Integer> permissionId){
+        return roleService.addRolePermission(roleId,permissionId);
+    }
+
+
 }

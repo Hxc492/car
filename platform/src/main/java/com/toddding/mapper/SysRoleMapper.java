@@ -51,4 +51,26 @@ public interface SysRoleMapper {
      * @return
      */
     Integer batchInsertUserRoles(@Param("userId") Integer userId,@Param("roleIds") List<Integer> roleIds);
+
+    /**
+     * 根据角色查询所有权限的id
+     * @param roleId
+     * @return
+     */
+    List<Integer> selectPermissionIds(@Param("roleId") Integer roleId);
+
+    /**
+     * 删除当前角色权限关系
+     * @param roleId
+     * @return
+     */
+    Integer deleteRolePermRel(@Param("roleId") Integer roleId);
+
+    /**
+     * 批量新增当前角色权限关系
+     * @param roleId
+     * @param permissionIds
+     * @return
+     */
+    Integer batchInsertRolePermRel(@Param("roleId") Integer roleId, @Param("permissionIds") List<Integer> permissionIds);
 }

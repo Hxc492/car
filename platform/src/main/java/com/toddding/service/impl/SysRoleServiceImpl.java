@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,6 +63,32 @@ public class SysRoleServiceImpl implements SysRoleService {
         roleMapper.deleteUserRole(userId);
         //新增用户角色关系
         roleMapper.batchInsertUserRoles(userId,roleIds);
+        return new Result();
+    }
+
+    @Override
+    public List<String> queryUserRolesTags(Integer id) {
+        List<SysRole> roleList=roleMapper.selectListByUserId(id);
+        List<String> roleTags=new ArrayList<>();
+        for (SysRole role : roleList) {
+            roleTags.add(role.getTag());
+        }
+        return roleTags;
+    }
+
+    @Override
+    public Result queryRolePermissionIds(Integer id) {
+        List<Integer> pIds = roleMapper.selectPermissionIds(id);
+        return new Result(pIds);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result addRolePermission(Integer roleId, List<Integer> permissionIds) {
+        //删除当前角色权限关系
+        roleMapper.deleteRolePermRel(roleId);
+        //新增当前角色权限关系
+        roleMapper.batchInsertRolePermRel(roleId,permissionIds);
         return new Result();
     }
 }

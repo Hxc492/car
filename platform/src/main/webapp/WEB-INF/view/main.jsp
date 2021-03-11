@@ -12,9 +12,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/layui/css/layui.css" media="all" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css" media="all" />
+    <link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css" media="all"/>
 </head>
 <body class="main_body">
 <div class="layui-layout layui-layout-admin">
@@ -29,13 +29,16 @@
             <!-- 顶部右侧菜单 -->
             <ul class="layui-nav top_menu">
                 <li class="layui-nav-item" pc>
-                    <a href="javascript:;" class="clearCache"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span class="layui-badge-dot"></span></a>
+                    <a href="javascript:;" class="clearCache"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite></a>
                 </li>
                 <li class="layui-nav-item" id="userInfo">
-                    <a href="javascript:;"><img src="${pageContext.request.contextPath}/resources/images/face.jpg" class="layui-nav-img userAvatar" width="35" height="35"><cite class="adminName"><shiro:principal property="realname"></shiro:principal></cite></a>
+                    <a href="javascript:;"><img src="${pageContext.request.contextPath}/resources/images/face.jpg" class="layui-nav-img userAvatar" width="35"
+                                                height="35"><cite class="adminName"><shiro:principal property="realname"></shiro:principal></cite></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="page/user/changePwd.html"><i class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
+                        <dd><a href="javascript:;" id="updatePassword">
+                            <i class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
                         <dd pc><a href="javascript:;" class="changeSkin"><i class="layui-icon">&#xe61b;</i><cite>更换皮肤</cite></a></dd>
+                        <dd pc><a href="javascript:;" id="updateImg"><i class="layui-icon">&#xe60d;</i><cite>更换头像(TODO)</cite></a></dd>
                         <dd><a href="javascript:;" id="logout" class="signOut"><i class="seraph icon-tuichu"></i><cite>退出</cite></a></dd>
                     </dl>
                 </li>
@@ -45,7 +48,7 @@
     <!-- 左侧导航 -->
     <div class="layui-side layui-bg-black">
         <div class="user-photo">
-            <a class="img" title="我的头像" ><img src="${pageContext.request.contextPath}/resources/images/face.jpg" class="userAvatar"></a>
+            <a class="img" title="我的头像"><img src="${pageContext.request.contextPath}/resources/images/face.jpg" class="userAvatar"></a>
             <p>你好！<span class="userName"><shiro:principal property="realname"></shiro:principal></span>, 欢迎登录</p>
         </div>
         <!-- 搜索 -->
@@ -88,27 +91,104 @@
             </div>
         </div>
     </div>
-
+    <!-- 底部 -->
+    <div class="layui-footer footer">
+        <p><span><i class="layui-icon layui-icon-email"></i> &nbsp; Taoger@outlook.com </span></p>
+    </div>
 </div>
+
+<%-- 修改密码模板 --%>
+<script type="text/html" id="updatePasswordTpl">
+    <form class="layui-form layui-form-pane" style="margin-top: 15px;margin-left: 15px">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i> 当前密码</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="password" placeholder="当前密码" lay-verify="required" lay-reqText="当前密码不能为空" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i> 新 密 码</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="newPassword" placeholder="新密码" lay-verify="required" lay-reqText="新密码不能为空" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i> 确认密码</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="confirmPassword" placeholder="确认密码" lay-verify="required" lay-reqText="确认密码不能为空" >
+            </div>
+        </div>
+        <button type="button" style="display: none" id="subBtn" lay-submit lay-filter="subBtnFilter"></button>
+    </form>
+</script>
+
 <script>
-    var cxt = '${pageContext.request.contextPath}';// /项目
+    var cxt = '${pageContext.request.contextPath}'; // /项目路径
 </script>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/layui/layui.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/index.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/cache.js"></script>
 <script>
-    layui.use(['jquery'],function () {
+    layui.use(['jquery', 'form'], function () {
         let $ = layui.jquery;
+        let form = layui.form;
+
         //用户退出事件
         $("#logout").click(function () {
-            $.get(cxt+"/sysuser/logout.do",function (rs) {
-                if (rs.code == 200){
+            $.get(cxt + "/sysuser/logout.do", function (rs) {
+                if (rs.code == 200) {
                     //退出成功 跳转到登录页面
-                    window.location.href = cxt+"/index.jsp";
+                    window.location.href = cxt + "/index.jsp";
                 }
             })
         });
+
+        /*
+        * 修改密码
+        * */
+        $("#updatePassword").click(function () {
+            // 弹出层的参数
+            let layOps = {
+                title: "修改密码",
+                type: 1,
+                skin: "layui-layer-molv",
+                content: $("#updatePasswordTpl").html(),
+                area: ['330px', '350px'],
+                success: function (layero, index) {
+                    form.render("radio");
+                    //表单的提交监听
+                    form.on("submit(subBtnFilter)", function (d) {
+                        let formData = d.field;
+                        let newPassword = formData.newPassword;//新密码
+                        let confirmPassword = formData.confirmPassword;//确认密码
+                        if (newPassword != confirmPassword) {
+                            layer.msg("确认密码不一致!")
+                            return false;
+                        }
+                        //使用ajax提交数据
+                        $.post(cxt + "/sysuser/updatePassword.do", formData, function (rs) {
+                            layer.msg(rs.msg);//展示业务消息
+                            if (rs.code != 200) {
+                                return false;
+                            }
+                            layer.close(index);//关闭弹层
+                            //重新登录
+                            window.location.href = cxt + "/index.jsp";
+                        })
+                        return false;//阻止默认提交行为
+                    })
+                },
+                btn: ['确认', '取消'],
+                btnAlign: "c",
+                yes: function (index, layero) {
+                    //点击隐藏的提交按钮  触发 表单提交监听
+                    $("#subBtn").click();
+                }
+            };
+            layer.open(layOps);
+        });
+
     })
 </script>
 </body>

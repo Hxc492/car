@@ -1,7 +1,11 @@
 package com.toddding.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.toddding.common.Constant;
 import com.toddding.common.Result;
+import com.toddding.domain.form.SysPermissionForm;
+import com.toddding.domain.query.SyPermissionQuery;
 import com.toddding.domain.vo.SysPermissionVo;
 import com.toddding.mapper.SysPermissionMapper;
 import com.toddding.service.SysPermissionService;
@@ -10,6 +14,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -59,5 +64,64 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         Collection<SysPermissionVo> values=menu.values();
         //返回数据
         return new Result(values);
+    }
+
+    @Override
+    public List<String> queryUserPermissionTags(Integer id) {
+        List<SysPermissionVo> permissionVos = permissionMapper.selectUserPermission(id, null);
+        List<String> permissionTags = new ArrayList<>();
+        for (SysPermissionVo vo : permissionVos) {
+            permissionTags.add(vo.getTag());
+        }
+        return permissionTags;
+    }
+
+    @Override
+    public Result queryAll() {
+        List<SysPermissionVo> voList = permissionMapper.selectList(new SyPermissionQuery());
+        return new Result(voList);
+    }
+
+    @Override
+    public Result queryPage(SyPermissionQuery query) {
+        Page<Object> page = PageHelper.startPage(query.getPage(), query.getLimit());
+        permissionMapper.selectList(query);
+        return new Result(page.toPageInfo());
+    }
+
+    @Override
+    public Result add(SysPermissionForm form) {
+        permissionMapper.insert(form);
+        return new Result();
+    }
+
+    @Override
+    public Result update(SysPermissionForm form) {
+        permissionMapper.update(form);
+        return new Result();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result delete(Integer id) {
+        /**
+         * 1.查出所有子权限
+         * 2.将当前权限id 和 子权限id 统一删除
+         * 3.将当前权限id 和 子权限id 相应的角色权限关系表数据删除
+         */
+        List<Integer> ids=new ArrayList<>();
+        ids.add(id);
+        //查询该菜单的子菜单id
+        List<Integer> childIds=permissionMapper.selectAllChildId(ids);
+        //循环查询子菜单的子菜单id
+        while (!childIds.isEmpty()){
+            ids.addAll(childIds);
+            childIds=permissionMapper.selectAllChildId(childIds);
+        }
+        //根据id列表删除权限
+        permissionMapper.batchDelete(ids);
+        //删除角色权限关系表
+        permissionMapper.batchDeleteRel(ids);
+        return new Result();
     }
 }
